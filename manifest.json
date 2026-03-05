@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "IxaMoko",
+  "author": "hoge",
+  "version": "10.31.202602.1",
+  "description": "Tool of Sengoku-ixa",
+  "permissions": ["contextMenus"],
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "run_at": "document_start",
+      "matches": [ "https://*.sengokuixa.jp/world/*" ],
+      "exclude_matches": ["https://cache.sengokuixa.jp/world/*"],
+      "js": ["inject_login.js"]
+    },
+    {
+      "all_frames": true,
+      "run_at": "document_end",
+      "matches": [ "https://*.sengokuixa.jp/*" ],
+      "exclude_matches": [
+        "https://sengokuixa.jp/*",
+        "https://cache.sengokuixa.jp/*",
+        "http://h.sengokuixa.jp/*",
+        "https://m.sengokuixa.jp/*",
+        "https://*.sengokuixa.jp/world/*",
+        "https://*.sengokuixa.jp/false/*",
+        "https://*.sengokuixa.jp/maintenance/",
+        "https://*.sengokuixa.jp/map_if.php*"
+
+      ],
+      "js": [ "inject_moko.js" ],
+      "css": [ "css/main.css" ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "contents/ixa-login.user.js",
+        "contents/ixa-moko.user.js",
+        "contents/ixa-training.user.js",
+        "contents/ixa-skill_table.js",
+        "userscript/defense_formation_info.js"
+      ],
+      "matches": [ "https://*.sengokuixa.jp/*" ]
+    }
+  ]
+}
