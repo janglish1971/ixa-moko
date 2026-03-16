@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IxaTraining
 // @description  戦国IXA用ツール 一括兵士訓練
-// @version      10.31.202602.1
+// @version      10.31.202603.1
 // @namespace    hoge
 // @author       nameless
 // @include      https://*.sengokuixa.jp/*

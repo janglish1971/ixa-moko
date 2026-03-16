@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IxaMoko
 // @description  戦国IXA用ツール コンテンツ
-// @version      10.31.202602.1
+// @version      10.31.202603.1
 // @author       nameless
 // @include      https://*.sengokuixa.jp/*
 // @exclude      https://sengokuixa.jp/*
@@ -153,7 +153,7 @@ function MokoMain($) {
     var data = {
       29: { 1: "豊臣家", 2: "竹中家", 3: "結城家", 4: "石田家", 5: "羽柴家", 6: "荒木家", 7: "小早川家", 8: "宇喜多家", 9: "黒田家", 10: "鍋島家", 11: "加藤家", 12: "島津家" },
       30: { 1: "織田家", 2: "豊臣家", 3: "徳川家", 4: "長宗我部家", 5: "武田家", 6: "上杉家", 7: "伊達家", 8: "毛利家", 9: "島津家", 10: "大友家", 11: "北条家", 12: "斎藤家" },
-      31: { 1: "豊臣家", 2: "石田家", 3: "大谷家", 4: "上杉家", 5: "佐竹家", 6: "本多家", 7: "真田家", 8: "福島家", 9: "毛利家", 10: "立花家", 11: "小西家", 12: "津軽家"},
+      31: { 1: "豊臣家", 2: "石田家", 3: "大谷家", 4: "上杉家", 5: "佐竹家", 6: "本多家", 7: "真田家", 8: "福島家", 9: "毛利家", 10: "立花家", 11: "小西家", 12: "津軽家" },
     }[login_data.chapter];
 
     function COUNTRY() { return $.extend({}, data); }
@@ -277,6 +277,31 @@ function MokoMain($) {
         "訓練兵【馬】": { number: 349, attack: 24, defense: 24, moving: 19, destroy: 3, tp1: "t2", tp2: "t2", command: "traning_cavalry", skilltype: "馬", cost: [] }
       },
       24: {
+        "足軽": { number: 321, attack: 18, defense: 18, moving: 15, destroy: 4, tp1: "t1", tp2: "t1", command: "yari1", skilltype: "槍", cost: [8, 10, 6, 6] },
+        "長槍足軽": { number: 322, attack: 23, defense: 23, moving: 16, destroy: 4, tp1: "t1", tp2: "t1", command: "yari2", skilltype: "槍", cost: [14, 17, 12, 12] },
+        "武士": { number: 323, attack: 26, defense: 27, moving: 17, destroy: 5, tp1: "t1", tp2: "t3", command: "yari3", skilltype: "槍", cost: [24, 30, 18, 18] },
+        "国人衆": { number: 324, attack: 27, defense: 28, moving: 18, destroy: 7, tp1: "t1", tp2: "t1", command: "yari4", skilltype: "槍", cost: [] },
+        "弓足軽": { number: 325, attack: 17, defense: 19, moving: 16, destroy: 2, tp1: "t3", tp2: "t3", command: "yumi1", skilltype: "弓", cost: [10, 8, 6, 6] },
+        "長弓兵": { number: 326, attack: 22, defense: 24, moving: 17, destroy: 2, tp1: "t3", tp2: "t3", command: "yumi2", skilltype: "弓", cost: [17, 14, 12, 12] },
+        "弓騎馬": { number: 327, attack: 27, defense: 26, moving: 21, destroy: 3, tp1: "t2", tp2: "t3", command: "yumi3", skilltype: "弓", cost: [30, 24, 18, 18] },
+        "海賊衆": { number: 328, attack: 26, defense: 27, moving: 22, destroy: 8, tp1: "t3", tp2: "t3", command: "yumi4", skilltype: "弓", cost: [] },
+        "騎馬兵": { number: 329, attack: 19, defense: 17, moving: 18, destroy: 2, tp1: "t2", tp2: "t2", command: "kiba1", skilltype: "馬", cost: [6, 6, 8, 10] },
+        "精鋭騎馬": { number: 330, attack: 24, defense: 21, moving: 19, destroy: 2, tp1: "t2", tp2: "t2", command: "kiba2", skilltype: "馬", cost: [12, 12, 14, 17] },
+        "赤備え": { number: 331, attack: 26, defense: 26, moving: 22, destroy: 3, tp1: "t1", tp2: "t2", command: "kiba3", skilltype: "馬", cost: [18, 18, 24, 30] },
+        "母衣衆": { number: 332, attack: 27, defense: 27, moving: 23, destroy: 7, tp1: "t2", tp2: "t2", command: "kiba4", skilltype: "馬", cost: [] },
+        "破城鎚": { number: 333, attack: 18, defense: 16, moving: 13, destroy: 12, tp1: "t4", tp2: "t4", command: "heiki1", skilltype: "器", cost: [12, 7, 9, 7] },
+        "攻城櫓": { number: 334, attack: 23, defense: 20, moving: 14, destroy: 12, tp1: "t4", tp2: "t4", command: "heiki2", skilltype: "器", cost: [18, 10, 12, 15] },
+        "大筒兵": { number: 335, attack: 28, defense: 26, moving: 14, destroy: 20, tp1: "t3", tp2: "t4", command: "heiki3", skilltype: "器", cost: [30, 30, 35, 25] },
+        "穴太衆": { number: 346, attack: 25, defense: 25, moving: 15, destroy: 15, tp1: "t4", tp2: "t4", command: "heiki8", skilltype: "器", cost: [30, 20, 23, 22] },
+        "鉄砲足軽": { number: 336, attack: 30, defense: 32, moving: 17, destroy: 10, tp1: "t1", tp2: "t4", command: "heiki4", skilltype: "砲", cost: [35, 25, 50, 40] },
+        "騎馬鉄砲": { number: 337, attack: 31, defense: 31, moving: 20, destroy: 10, tp1: "t2", tp2: "t4", command: "heiki5", skilltype: "砲", cost: [25, 50, 35, 40] },
+        "焙烙火矢": { number: 345, attack: 32, defense: 30, moving: 16, destroy: 12, tp1: "t3", tp2: "t4", command: "heiki7", skilltype: "砲", cost: [35, 40, 25, 50] },
+        "雑賀衆": { number: 338, attack: 32, defense: 32, moving: 19, destroy: 17, tp1: "t1", tp2: "t4", command: "heiki6", skilltype: "砲", cost: [] },
+        "訓練兵【槍】": { number: 347, attack: 24, defense: 25, moving: 18, destroy: 3, tp1: "t1", tp2: "t1", command: "traning_spear", skilltype: "槍", cost: [] },
+        "訓練兵【弓】": { number: 348, attack: 25, defense: 24, moving: 18, destroy: 3, tp1: "t3", tp2: "t3", command: "traning_archer", skilltype: "弓", cost: [] },
+        "訓練兵【馬】": { number: 349, attack: 24, defense: 24, moving: 19, destroy: 3, tp1: "t2", tp2: "t2", command: "traning_cavalry", skilltype: "馬", cost: [] }
+      },
+      31: {
         "足軽": { number: 321, attack: 18, defense: 18, moving: 15, destroy: 4, tp1: "t1", tp2: "t1", command: "yari1", skilltype: "槍", cost: [8, 10, 6, 6] },
         "長槍足軽": { number: 322, attack: 23, defense: 23, moving: 16, destroy: 4, tp1: "t1", tp2: "t1", command: "yari2", skilltype: "槍", cost: [14, 17, 12, 12] },
         "武士": { number: 323, attack: 26, defense: 27, moving: 17, destroy: 5, tp1: "t1", tp2: "t3", command: "yari3", skilltype: "槍", cost: [24, 30, 18, 18] },
@@ -1332,10 +1357,13 @@ function MokoMain($) {
       punitive_type_mod: { tag: 'unit', caption: '使用兵種：' },
 
       // 兵舎
+      // part49 736対応済み
       facility_selecter: { tag: 'sol', caption: '全拠点の兵舎リンクの設置と一括訓練' },
-      desc_soldier: { tag: 'sol', caption: '上位兵種を上段へ表示する' },
       def_kind_soldier: { tag: 'sol', caption: 'デフォルト兵種' },
-      facility_maxsoldier: { tag: 'sol', caption: 'デフォルト兵種に最大訓練可能数リンク設置する' },
+      quick_train: { tag: 'sol', caption: 'クイック訓練' },
+      quick_train_all_mod: { tag: 'sol', caption: '全拠点 訓練数' },
+      quick_train_castle_mod: { tag: 'sol', caption: '本領のみ 訓練数' },
+      quick_train_sub_mod: { tag: 'sol', caption: '支城のみ 訓練数' },
       def_num_of_soldier: { tag: 'sol', caption: 'デフォルトの訓練数' },
       def_num_of_soldier_mod: { tag: 'sol', caption: '訓練数リスト' },
       prod_with_smalllot: { tag: 'sol', caption: '小分け生産を使用する' },
@@ -1547,7 +1575,7 @@ function MokoMain($) {
                   '27': '流天絶花～静謐の争奪～',
                   '28': '梵龍天翔～岐立十二龍門～',
                   '29': '煌智蓋世～那由多の術策～',
-
+                  '31': '義天連星～夢紡ぐ誓いの光～',
                 };
                 setting_list += '<li><label>' + this.optionsKeys[key].caption + ':</label>&nbsp;' +
                   '<select class="ixamoko_setting" key="' + key + '">' +
@@ -1651,6 +1679,25 @@ function MokoMain($) {
                 };
                 setting_list += this.createList(key, '', list, mod);
                 break;
+              //part49 737 start
+              case 'quick_train':
+                var rows = [
+                  ['全拠点&nbsp&nbsp：&nbsp', 'quick_train_all_mod'],
+                  ['本領のみ&nbsp：&nbsp', 'quick_train_castle_mod'],
+                  ['支城のみ&nbsp：&nbsp', 'quick_train_sub_mod']
+                ];
+
+                html =
+                  '<li class="setting_sub">' +
+                  rows.map(function (v) {
+                    return '<label style="display:block; margin-left:1em;">' +
+                      v[0] + '<input type="text" key="' + v[1] + '" value="' + (options[v[1]] || '') + '" class="ixamoko_setting" maxlength="6" /></label>';
+                  }).join('') +
+                  '</li>';
+
+                setting_list += this.createList(key, html);
+                break;
+              //part49 737 end
               case 'def_num_of_soldier':
                 mod = options.def_num_of_soldier_mod;
                 list = DEFAULT_SET_NUM;
@@ -1862,7 +1909,7 @@ function MokoMain($) {
                   'checked': true,
                   'disabled': true
                 });
-              } else if (keys == 'unit_list_group' || keys == 'punitive' || keys == 'potential_regist' || keys == 'map_butai_status' || keys == 'map_potential' || keys == 'raid_sound' || keys == 'raid_alarm_display' || keys == 'sort_village' || keys == 'favorites_troops_regist') {
+              } else if (keys == 'unit_list_group' || keys == 'quick_train' || keys == 'punitive' || keys == 'potential_regist' || keys == 'map_butai_status' || keys == 'map_potential' || keys == 'raid_sound' || keys == 'raid_alarm_display' || keys == 'sort_village' || keys == 'favorites_troops_regist') {
                 target.slideDown('fast');
               } else if (keys == 'pager_ajax') {
                 if (pager_ajax_mod == 1) {
@@ -1875,7 +1922,7 @@ function MokoMain($) {
             } else {
               if (keys == 'raid_system') {
                 $default.prop('disabled', false);
-              } else if (keys == 'unit_list_group' || keys == 'punitive' || keys == 'potential_regist' || keys == 'raid_sound' || keys == 'pager_ajax' || keys == 'raid_alarm_display' || keys == 'sort_village') {
+              } else if (keys == 'unit_list_group' || keys == 'quick_train' || keys == 'punitive' || keys == 'potential_regist' || keys == 'raid_sound' || keys == 'pager_ajax' || keys == 'raid_alarm_display' || keys == 'sort_village') {
                 target.slideUp('fast');
               } else if (keys == 'map_butai_status' || keys == 'map_potential' || keys == 'favorites_troops_regist') {
                 target.find('input.ixamoko_setting').prop('checked', false).change();
@@ -2951,7 +2998,13 @@ function MokoMain($) {
     target.find('span[class^="ig_skill_desc"]').each(function () {
       var add_flag = false,
         time_flag = false;
-      if ($(this).text().indexOf('速：') != -1 || $(this).text().indexOf('速度：') != -1) {
+
+      //part49 722 start
+      //      if ($(this).text().indexOf('速：') != -1 || $(this).text().indexOf('速度：') != -1) {
+      var text = $(this).text();
+      if (!/武将回復速度：/.test(text) && /速：|速度：/.test(text)) {
+        //part49 722 end
+
         if ($(this).text().indexOf('%低下') != -1) {
           add_flag = true;
         }
@@ -2964,9 +3017,17 @@ function MokoMain($) {
             : !(h >= parseInt(time_match[1]) && h < parseInt(time_match[3]));
         }
 
-        var targetType = $(this).find('font').text().replace(/飛翔\d+|部隊長/g, ''),
-          str = $(this).text().match(/速度?：\d+(\.\d+)?/g)[0],
-          rate = parseFloat(str.replace(/速度?：/, ''));
+        //part49 722 start
+        //        var targetType = $(this).find('font').text().replace(/飛翔\d+|部隊長/g, ''),
+        //          str = $(this).text().match(/速度?：\d+(\.\d+)?/g)[0],
+        //          rate = parseFloat(str.replace(/速度?：/, ''));
+        var targetType = [], rate = 0;
+        var m = text.match(/速度：\+?(\d+(\.\d+)?)/);
+        if (m) {
+          rate = parseFloat(m[1]);
+        }
+        //part49 722 end
+
         if (add_flag) {
           if (!o[targetType]) {
             o[targetType] = -rate;
@@ -5977,8 +6038,8 @@ function MokoMain($) {
     elite_category();
   }
   function elite_category() {
-    if (location.pathname == '/card/defense_formation_deck.php' || 
-                             '/card/sub_area_defense_formation_deck.php') {
+    if (location.pathname == '/card/defense_formation_deck.php' ||
+      '/card/sub_area_defense_formation_deck.php') {
       if (!$('#breakup_all_command').length) { return; }
 
       var $deck = $('#deck_bg');
@@ -6039,8 +6100,8 @@ function MokoMain($) {
     }
   }
   function ajaxStopDefenseFormation() {
-    if (location.pathname == '/card/defense_formation_deck.php' || 
-                             '/card/sub_area_defense_formation_deck.php') {
+    if (location.pathname == '/card/defense_formation_deck.php' ||
+      '/card/sub_area_defense_formation_deck.php') {
       $(document).on('ajaxStop', function () {
         if (!$('div.deck_btns').find('img[alt="兵編成"]').length) {
           elite_category();
@@ -17144,555 +17205,549 @@ function MokoMain($) {
       return;
     }
 
-    // 現在の資源
-    var resource = (function () {
-      var a = [];
-      $('#wood, #stone, #iron, #rice').each(function () {
-        a.push(parseInt($(this).text().replace(/,/g, ''), 10));
-      });
-      return a;
-    })();
+    $('p.ig_tile_explain.unit_info_explain').hide(); //兵種解説の非表示
 
-    // 上位兵を上段に表示
-    var desc_soldier = function () {
-      if (!options.desc_soldier) {
+    $('.ig_tilesection_innermid').each(function () {
+
+      var $tab = $(this);
+
+      var $submitArea = $tab.find('.facility_training_panel_submit')
+        .closest('p.center');
+
+      var $targetText = $tab.find('.facility_training_panel_unit_all_select_label')
+        .next('p');
+
+      $submitArea.insertBefore($targetText);
+
+    });
+
+    // ============================
+    // 最大兵数からプルダウン用配列生成
+    // ============================
+    function createUnitValueList(maxValue) {
+      var list = [];
+
+      // 最大兵数が1000以下なら、その値のみ
+      if (maxValue <= 1000) {
+        return [maxValue];
+      }
+
+      // 1001以上の場合は必ず1000を入れる
+      var num = 1000;
+      list.push(1000);
+
+      for (var i = 0; i < 100; i++) {
+        num += (num < 10000) ? 500 : 1000;
+        if (num > maxValue) break;
+        list.push(num);
+      }
+
+      return list;
+    }
+
+    // ============================
+    // プルダウン生成（通常訓練・上位訓練 共通）
+    // ============================
+    $('input[name^="unit_value"]').each(function () {
+
+      var $input = $(this);
+
+      // 二重生成防止
+      if ($input.next('.unit_value_select').length) return;
+
+      // 最大兵数取得
+      var $span = $input.closest('tr, td')
+        .find('span[onClick^="setObjectValue"], .unit_confirm_input_text')
+        .first();
+
+      if (!$span.length) return;
+
+      var maxText = $span.text().replace(/[()]/g, '').trim();
+      var maxValue = parseInt(maxText, 10);
+      if (isNaN(maxValue)) return;
+
+      var values = createUnitValueList(maxValue);
+
+      var $select = $('<select>', {
+        class: 'unit_value_select',
+        style: 'margin-left:8px;'
+      });
+
+      $select.append('<option value="">▼兵数選択</option>');
+
+      values.forEach(function (v) {
+        $select.append(
+          $('<option>', {
+            value: v,
+            text: v
+          })
+        );
+      });
+
+      $input.after($select);
+    });
+
+    // ============================
+    // プルダウン選択 → input反映
+    // ============================
+    $(document).on('change', '.unit_value_select', function () {
+
+      var value = $(this).val();
+      if (!value) return;
+
+      $(this).prev('input[name^="unit_value"]')
+        .val(value)
+        .trigger('input');
+    });
+
+    // ============================
+    // 最大兵数チェック（通常・上位 共通）
+    // ============================
+    $(document).on('input change', 'input[name^="unit_value"]', function () {
+
+      var $input = $(this);
+
+      var $span = $input.closest('tr, td')
+        .find('span[onClick^="setObjectValue"], .unit_confirm_input_text')
+        .first();
+
+      if (!$span.length) {
+        $input.removeClass('over-limit');
         return;
       }
-      $('DIV[id^="TrainingBlock"] DIV.ig_tilesection_mid').each(function () {
-        var element = [];
-        var idx = 0;
-        $(this).find('DIV[class^="ig_tilesection_innermid"]').each(function () {
-          element[idx++] = $(this);
-        });
-        $(this).find('DIV[class^="ig_tilesection_innertop"]').each(function () {
-          $(this).after(element[--idx]);
-        });
-      });
-    },
 
-      // 兵数入力リスト
-      soldiersList = function () {
-        $('INPUT[name="send"]').each(function (index, el) {
-          var manu = (function () {
-            var max = $(el).parent().find('SPAN[onclick^="setObjectValue"]').text().match(/\d+/g)[0];
-            var array = [];
-            var num = 0;
-            for (var i = 0; i < 100; i++) {
-              if (num += 100 > max ? 10 : i < 10 ? 100 : i < 28 ? 500 : 1000, max >= num) {
-                array.push(num);
-              } else if (num > max) {
-                break;
-              }
-            }
-            return array;
-          })();
-          var html = '<SELECT name="constant_set"  style="margin-right: 10px;">' +
-            '<OPTION value="">兵数入力</OPTION>';
-          for (var i = 0, len = manu.length; i < len; i++) {
-            html += '<OPTION value="' + manu[i] + '">' + manu[i] + '</OPTION>';
-          }
-          html += '</SELECT>';
-          $(el).before(html);
-        });
-        $('SELECT[name="constant_set"]').on('change', function () {
-          $(this).parent().find('INPUT[id^="unit_value"]').val($(this).val());
-        });
-        $('FORM[name="createUnitForm"]').find('SPAN:eq(0)').css('white-space', 'nowrap');
-        $('TABLE.paneltable_high TH').width(100);
+      var maxValue = parseInt(
+        $span.text().replace(/[()]/g, '').trim(),
+        10
+      );
+      var currentValue = parseInt($input.val(), 10);
+
+      if (isNaN(maxValue) || isNaN(currentValue)) {
+        $input.removeClass('over-limit');
+        return;
       }
 
-    const fname = document.title.split(' - ')[0];
-    var soldierCost, i, len, html;
+      if (currentValue > maxValue) {
+        $input.addClass('over-limit');
+      } else {
+        $input.removeClass('over-limit');
+      }
+    });
 
-    // 兵舎
-    if (fname.match(/厩舎|足軽兵舎|弓兵舎|兵器鍛冶/)) {
-      desc_soldier(); // 上位兵を上段に表示
-      soldiersList(); // 兵数入力リスト
+    // ============================
+    // 支城のみ + 本領のみボタン
+    // ============================
+    $(function () {
+      $('.ig_tilesection_innermid').each(function () {
 
-      // デフォルト兵種
-      // 最大訓練可能数リンク設置 || デフォルトの訓練数
-      soldierCost = getTrainingCost();
-      var vacancy = get_vacancy(); // 陣屋の空き容量
-      var rate = getMarket().rate; // 市の取引相場
-      $('DIV.ig_tilesection_innermid').find('H3.unit_info_unit_name:eq(0)').each(function () {
-        var $detailarea = $(this).closest('DIV.ig_tilesection_detailarea');
-        var $tbody = $detailarea.find('TABLE.paneltable:has(FORM[name="createUnitForm"]) TBODY');
-        var $unit_value = $tbody.find('INPUT[name^="unit_value"]');
-        var type = $(this).find('B').text().replace(/[\[\]]/g, '');
-        var $div = $(this).closest('DIV[id^="TrainingBlock"]');
-        var training_type = $div.find('DIV.ig_decksection_top span').attr('title');
+        var $tab = $(this);
+        var unitId = $tab.find('form').data('unit_id');
+        if (!unitId) return;
 
-        // デフォルト兵種 ※通常訓練のみ && 訓練可能状態
-        if (soldierCost[type] && $unit_value.length && !training_type.match(/高速訓練|上位訓練/)) {
-          var max = 999999;
-          for (var i = 0, len = resource.length; i < len; i++) {
-            if ((resource[i] / soldierCost[type][i]) < max) {
-              max = Math.floor(resource[i] / soldierCost[type][i]);
+        var exceptId = 'check_except_first_' + unitId;
+        var onlyCastleId = 'check_only_castle_' + unitId;
+
+        // すでに追加済みならスキップ
+        if ($tab.find('#' + exceptId).length) return;
+
+        // --- 支城のみ ---
+        var $labelExcept = $('<label>', {
+          class: 'facility_training_panel_unit_all_select_label'
+        });
+
+        var $checkboxExcept = $('<input>', {
+          type: 'checkbox',
+          id: exceptId,
+          class: 'check_except_first'
+        });
+
+        $labelExcept.append($checkboxExcept).append('支城のみを選択');
+
+        // --- 本領のみ ---
+        var $labelCastle = $('<label>', {
+          class: 'facility_training_panel_unit_all_select_label',
+        });
+
+        var $checkboxCastle = $('<input>', {
+          type: 'checkbox',
+          id: onlyCastleId,
+          class: 'check_only_castle'
+        });
+
+        $labelCastle.append($checkboxCastle).append('本領のみを選択');
+
+        // 「全て選択」の直後に順番で追加
+        var $base = $tab.find('.facility_training_panel_unit_all_select_label').last();
+        $base.after($labelExcept).after($labelCastle);
+
+      });
+    });
+
+    $(document).on('change', 'input[id^="check_except_first_"]', function () {
+
+      var $area = $(this).closest('td');
+      var $all = $area.find('input[name="create_village[]"]');
+
+      // 本領のみをOFF
+      $area.find('input[id^="check_only_castle_"]').prop('checked', false);
+
+      $all.prop('checked', false);
+
+      if (this.checked) {
+        $area.find('.facility_training_panel_place_select_group_item')
+          .not('.castle')
+          .find('input[name="create_village[]"]')
+          .prop('checked', true);
+      }
+    });
+
+    $(document).on('change', 'input[id^="check_only_castle_"]', function () {
+
+      var $area = $(this).closest('td');
+      var $all = $area.find('input[name="create_village[]"]');
+
+      // 支城のみをOFF
+      $area.find('input[id^="check_except_first_"]').prop('checked', false);
+
+      $all.prop('checked', false);
+
+      if (this.checked) {
+        $area.find('.facility_training_panel_place_select_group_item.castle')
+          .find('input[name="create_village[]"]')
+          .prop('checked', true);
+      }
+    });
+
+    $(document).on('click', '.facility_training_panel_place_select_group_item .place_icon', function () {
+
+      var $groupItem = $(this).closest('.facility_training_panel_place_select_group_item');
+      var $checkbox = $groupItem.find('.facility_training_panel_select_group_checkbox');
+
+      if ($checkbox.length) {
+        $checkbox.prop('checked', !$checkbox.prop('checked'));
+        $checkbox.trigger('change');
+      }
+    });
+
+    // =========================
+    // クイック練兵
+    // =========================
+    function getActiveTrainingTab() {
+      return $('.tab_training_wrap li.active').data('tab');
+    }
+
+    function getActiveForm($submit) {
+      return $submit.closest('form');
+    }
+
+    function getTrainInput($form, tab) {
+
+      // 通常訓練
+      if (tab === 1) {
+        return $form.find('input.input_unit_value:visible').first();
+      }
+
+      // 上位訓練
+      if (tab === 3) {
+        const unitId = $form.data('unit_id');
+        if (!unitId) return $();
+        return $form.find('input[name="unit_value_upgrade[' + unitId + ']"]');
+      }
+
+      return $();
+    }
+
+    // =========================
+    // 入力値補正
+    // =========================
+    function adjustTrainValue(baseValue, event) {
+
+      // Shift：半分
+      if (event.shiftKey) {
+        return Math.floor(baseValue / 2);
+      }
+
+      // Ctrl：2倍
+      if (event.ctrlKey) {
+        return baseValue * 2;
+      }
+
+      return baseValue;
+    }
+
+    // =========================
+    // メイン処理(人数+拠点をセット後に確認ボタンを押下)
+    // =========================
+    function executeQuickTrain(trainValue, mode, $submit) {
+
+      const tab = getActiveTrainingTab();
+      const $form = getActiveForm($submit);
+      if (!$form.length) return;
+
+      const unitId = $form.data('unit_id');
+      const $input = getTrainInput($form, tab);
+
+      if (!$input.length) {
+        console.warn('訓練inputが見つかりません', tab, unitId);
+        return;
+      }
+
+      // 人数セット
+      $input
+        .val(trainValue)
+        .trigger('input')
+        .trigger('change');
+
+      // チェック初期化
+      $('#check_only_castle_' + unitId).prop('checked', false);
+      $('#check_except_first_' + unitId).prop('checked', false);
+
+      // モード別チェック
+      if (mode === 'castle') {
+        $('#check_only_castle_' + unitId)
+          .prop('checked', true)
+          .trigger('change');
+      }
+
+      if (mode === 'sub') {
+        $('#check_except_first_' + unitId)
+          .prop('checked', true)
+          .trigger('change');
+      }
+
+      if (mode === 'all') {
+        $form.find('.unit_id_' + unitId).prop('checked', true);
+      }
+
+      // 確認
+      setTimeout(function () {
+        $submit.click();
+      }, 70);
+    }
+
+    // =========================
+    // ツールチップ
+    // =========================
+    const $tooltip = $('<div>', {
+      css: {
+        position: 'fixed',
+        padding: '2px 6px',
+        background: '#000',
+        color: '#fff',
+        fontSize: '12px',
+        borderRadius: '4px',
+        pointerEvents: 'none',
+        zIndex: 99999,
+        display: 'none'
+      }
+    }).appendTo('body');
+
+    $(document).on('mousemove', function (e) {
+
+      if (e.shiftKey) {
+        $tooltip.text('×0.5').css({
+          left: e.clientX + 12,
+          top: e.clientY + 12,
+          display: 'block'
+        });
+        return;
+      }
+
+      if (e.ctrlKey) {
+        $tooltip.text('×2').css({
+          left: e.clientX + 12,
+          top: e.clientY + 12,
+          display: 'block'
+        });
+        return;
+      }
+
+      $tooltip.hide();
+    });
+
+    // =========================
+    // ボタン生成
+    // =========================
+    function createButtons() {
+
+      if (!options.quick_train || location.pathname != '/facility/facility.php') {
+        return;
+      }
+
+      $('.quick_train_btn').remove();
+
+      $('.facility_training_panel_submit:visible').each(function () {
+
+        var $submit = $(this);
+        var $insertPoint = $submit; // 左→右に並べるための基準
+
+        var buttons = [
+          {
+            label: '全拠点 ',
+            value: parseInt(options.quick_train_all_mod, 10),
+            mode: 'all',
+            color: '#5cb85c'
+          },
+          {
+            label: '本領のみ ',
+            value: parseInt(options.quick_train_castle_mod, 10),
+            mode: 'castle',
+            color: '#d9534f'
+          },
+          {
+            label: '支城のみ ',
+            value: parseInt(options.quick_train_sub_mod, 10),
+            mode: 'sub',
+            color: '#2d8cf0'
+          }
+        ];
+
+        buttons.forEach(function (btn) {
+
+          // 未設定・不正値は生成しない
+          if (isNaN(btn.value) || btn.value <= 0) return;
+
+          var displayValue = btn.value.toLocaleString();
+          var $b = $('<input>', {
+            type: 'button',
+            value: btn.label + displayValue,
+            class: 'quick_train_btn',
+            css: {
+              marginLeft: '6px',
+              backgroundColor: btn.color,
+              color: '#fff',
+              border: '1px solid #000',
+              padding: '4px 10px',
+              cursor: 'pointer'
             }
-          }
-          if (max < 100) {
-            return; // 訓練可能数が100以下は表示しない
-          }
-
-          // デフォルトの訓練数
-          if (options.def_num_of_soldier) {
-            var mod = options.def_num_of_soldier_mod;
-            $unit_value.val(mod > max ? max : mod);
-          }
-
-          // 最大訓練可能数リンク設置
-          if (options.facility_maxsoldier) {
-            var str = (vacancy < max) ? ' style="color: crimson;"' : '';
-            html = '';
-            $tbody.find('TR TH').attr('width', '100');
-            $tbody.find('TR:eq(0)').find('TD').attr('colspan', '5');
-            $tbody.find('TR:eq(2)').find('TD:eq(0)').attr('colspan', '5');
-            $tbody.find('TR:eq(3)').removeAttr('class');
-            $tbody.find('TR:eq(3)').find('TD:eq(1)').attr('colspan', '5');
-            html += '' +
-              '<TR class="max_line">' +
-              '<TH>陣屋空き</TH><TD><SPAN>' + vacancy + '</SPAN></TD>' +
-              '<TH>100~ (最大数)</TH>' +
-              '<TD><SPAN class="now_max"' + str + '>(' + max + ')</SPAN></TD>' +
-              '<TH>取引使用 (最大数)</TH><TD>市未登録</TD>' +
-              '</TR>';
-            $tbody.append(html);
-            if (rate) {
-              var data = tradableNum({
-                resource: resource,
-                required: soldierCost[type],
-                rate: rate
-              });
-              $tbody.find('TR:last TD:last')
-                .html('<SPAN class="after_max"' + str + '>(' + data.maxsoldier + ')</SPAN>');
-            }
-          }
-        }
-
-        // デフォルト兵種以外は折りたたむ ※上位訓練以外
-        else if (!soldierCost[type] && !training_type.match(/上位訓練/)) {
-          var $innerborder = $(this).closest('DIV[class*="ig_tilesection_innerborder"]').addClass('passive');
-          $(this).find('B').addClass('pointer').on('click', function () {
-            $innerborder.toggleClass('passive');
           });
-        }
-      });
 
-      // 最大訓練可能数リンク設置 event
-      $('SPAN.now_max, SPAN.after_max').on('click', function () {
-        var $input = $(this).closest('TABLE').find('INPUT[id^="unit_value"]');
-        $input.val($(this).text().match(/\d+/g)[0]);
-      });
-    }
+          $b.on('click', function (e) {
+            var adjustedValue = adjustTrainValue(btn.value, e);
+            var tab = getActiveTrainingTab();
+            var $form = getActiveForm($submit);
+            var $input = getTrainInput($form, tab);
 
-    // 市
-    if (fname.match(/市/)) {
-      var $table = $('TABLE.paneltable_blue').css('margin', '0 auto 10px');
-      var $resource_num = $('#resource_num').hide();
-      var createMenu = function () {
-        $('#menu_num').remove();
-        var source = $resource_num.text().match(/\d+/g);
-        var max = source ? source[0] : 0;
-        var num = 0;
-        var html = '<SELECT id="menu_num" style="margin: 0 5px 0 0;">' +
-          '<OPTION value="">定数選択</OPTION>';
-        for (i = 0; i < 100; i++) {
-          num += i < 10 ? 1000 : i < 29 ? 10000 : 100000;
-          if (num > max) {
-            break;
-          }
-          html += '<OPTION value="' + num + '">' + num + '</OPTION>';
-        }
-        html += '<OPTION value="' + max + '">' + max + '</OPTION>' +
-          '</SELECT>';
-        if (max) {
-          $(html).on('change', function () {
-            $('#tc').val($(this).val());
-          }).insertBefore($resource_num);
-        }
-      };
+            if (!$input.length) {
+              console.warn('訓練inputが見つかりません');
+              return;
+            }
 
-      // 資源数選択リスト
-      createMenu();
+            $input.val(adjustedValue).trigger('input');
 
-      // アイコン layout
-      $('#select, #select2').hide().after(
-        '<IMG src="' + CACHE_PASS + '/img/common/ico_wood.gif" class="resources" name="wood" value="101" alt="木" />' +
-        '<IMG src="' + CACHE_PASS + '/img/common/ico_wool.gif" class="resources" name="stone" value="102" alt="綿" />' +
-        '<IMG src="' + CACHE_PASS + '/img/common/ico_ingot.gif" class="resources" name="iron" value="103" alt="鉄" />' +
-        '<IMG src="' + CACHE_PASS + '/img/common/ico_grain.gif" class="resources" name="rice" value="104" alt="糧" />'
-      ).each(function () {
-        $(this).parent('TD').find('IMG[value="' + $(this).val() + '"]').addClass('selected');
-      });
+            // =========================
+            // 上限値超過なら停止
+            // =========================
+            if ($input.hasClass('over-limit')) {
+              alert(
+                '設定された訓練数（' +
+                adjustedValue.toLocaleString() +
+                '）が上限を超えています'
+              );
+              return;
+            }
+            executeQuickTrain(adjustedValue, btn.mode, $submit);
+          });
 
-      // アイコン event
-      $('IMG.resources').on('click', function () {
-        var $td = $(this).parent('TD');
-        var $select = $td.find('SELECT');
-        $td.find('IMG.resources').removeClass('selected');
-        $(this).addClass('selected');
-        $select.val($(this).attr('value')).change();
-        if ($select.attr('name') == 'tf_id') {
-          createMenu();
-        }
-      });
-
-      // 市での取引後に可能な最大作成兵数を表示
-      if (options.market_maxsoldier) {
-        var checked_soldier = getStorage(SOLDIER.orgChecked, 'ixamoko_maxsoldier_checked');
-        var $span = $('DIV.ig_tilesection_detailarea IMG[alt="取引相場"]').parent().next().find('SPAN');
-        var $div = $('DIV.ig_tilesection_btnarea').eq(0);
-        var rate = $span.text().match(/\d+/g)[0] / 100;
-        soldierCost = getTrainingCost();
-        html = '' +
-          '<TABLE style="width: 100%; margin-top: 10px; background-color:#f3f2de;" class="common_table1 center">' +
-          '<TR>' +
-          '<TH>複合</TH><TH>兵士</TH><TH>不足</TH><TH>過剰</TH><TH>作成可能</TH>' +
-          '</TR>';
-        if (!Object.keys(soldierCost).length) {
-          html += '' +
-            '<TR><TD colspan="5">デフォルト兵種が設定されていません</TD></TR>' +
-            '</TABLE>';
-          $div.after(html);
-          return;
-        }
-        for (var key2 in soldierCost) {
-          var data = tradableNum({
-            resource: resource,
-            required: soldierCost[key2],
-            rate: rate
-          }),
-            str;
-          if (data.maxsoldier < 100) {
-            str = '<TD>-</TD><TD>-</TD><TD>100未満</TD></TR>';
-          } else {
-            str = '<TD>' + data.shortage + '</TD><TD>' + data.excess + '</TD><TD>' + data.maxsoldier + '</TD></TR>';
-          }
-          html += '<TR><TD><input type="checkbox" id="' + key2 + '"></TD><TD>' + key2 + '</TD>' + str;
-        }
-        html += '' +
-          '<TR id="maxsol_total">' +
-          '<TH colspan="2"><DIV id="merge">-</DIV></TH>' +
-          '<TD id="shortage">-</TD>' +
-          '<TD id="excess">-</TD>' +
-          '<TD id="maxsoldier">-</TD>' +
-          '</TR>' +
-          '</table>';
-        $div.after(html);
-
-        // チェック・イベント
-        for (var key3 in checked_soldier) {
-          $('#' + key3)
-            .prop('checked', checked_soldier[key3])
-            .on('change', combo_soldier);
-        }
-        combo_soldier();
-
-        $('SPAN.ixamoko_shortage_resource, SPAN.ixamoko_excess_resource')
-          .on('click', trading_value);
-      }
-    }
-
-    function trading_value(event) {
-      var target = $(event.currentTarget);
-      var $select = target.attr('class').indexOf('excess') != -1 ? $('#select') : $('#select2');
-      var type = target.attr('type');
-      $select.val(type)
-        .parent().find('img').removeClass('selected')
-        .parent().find('img[value="' + type + '"]').addClass('selected');
-      var tc0 = $('#tc').val() * 1;
-      var tc1 = target.attr('value') * 1;
-      if (!tc0 || tc0 > tc1) {
-        $('#tc').val(tc1);
-      }
-    }
-
-    // 訓練コストの取得
-    function getTrainingCost() {
-      var new_arr = function (array, num) {
-        return $.map(array, function (value, idx) {
-          return Math.round((value - num) * 0.9);
+          // 追加位置を更新し、左から順に並べる
+          $insertPoint.after($b);
+          $insertPoint = $b;
         });
-      },
-        data = {}, obj = {}, key, key2;
-
-      // デフォルト兵種のコストを抽出
-      for (key in options.def_kind_soldier) {
-        if (!options.def_kind_soldier[key]) {
-          continue;
-        }
-        data[key] = SOLDIER.mainData[key].cost;
-      }
-
-      // 金山の資源割引の取得
-      var html = $.ajax({
-        type: 'post',
-        url: '/alliance/alliance_gold_mine.php',
-        async: false,
-        beforeSend: xrwStatusText,
-      }).responseText;
-      $(html).find('div[id^="conditionWindow"] dd').each(function () {
-        if ($(this).text() == '「宝物を発掘していないため、ご利益はありません」') {
-          return;
-        }
-        var str = $(this).text().match(/\「.+?\」/g),
-          type = str[0].replace(/[「」]/g, ''),
-          count = str[1].replace(/[「」]/g, '') - 0;
-        obj[type] = count;
       });
-
-      // 金山の資源割引と錬兵100以上の割引を減
-      for (key in data) {
-        for (key2 in obj) {
-          if (key != key2) {
-            continue;
-          }
-          data[key] = new_arr(data[key], obj[key2]);
-        }
-      }
-      return data;
     }
 
-    // 陣屋の収容可能数の取得
-    function get_vacancy() {
-      var html = $.ajax({
-        type: 'post',
-        async: false,
-        url: '/facility/unit_list.php',
-        beforeSend: xrwStatusText,
-      }).responseText;
-      var source = $(html).find('#ig_deckbox div.ig_solder_commentarea').eq(0).text().match(/\d+/g);
-      var now = parseInt(source[0]);
-      var max = parseInt(source[1]);
-      var vacancy = max - now;
-      return vacancy < 0 ? 0 : vacancy;
-    }
+    // ==================================================
+    // 初期化 & タブ・展開対応 & 通常訓練：兵種切り替え対応
+    // ==================================================
+    $(document).ready(function () {
+      createButtons();
+    });
 
-    // 最大作成兵数を取得
-    function combo_soldier() {
-      var soldierCost = getTrainingCost();
-      var maxsoldier_checked = getStorage({}, 'ixamoko_maxsoldier_checked');
-      var html = '';
-      var necessary_total = [0, 0, 0, 0];
-      for (var key in soldierCost) {
-        var target = $('#' + key);
-        maxsoldier_checked[key] = target.prop('checked');
-        setStorage('ixamoko_maxsoldier_checked', maxsoldier_checked);
-        if (target.prop('checked')) {
-          html += '<p style="line-height: 1.2;">' + key + '</p>';
-          for (var i = 0; i < soldierCost[key].length; i++) {
-            necessary_total[i] += soldierCost[key][i];
-          }
-        }
-      }
+    $(document).on('click', '.tab_training_wrap li', function () {
+      setTimeout(createButtons, 50);
+    });
 
-      var data = tradableNum({
-        resource: resource,
-        required: necessary_total,
-        rate: rate
-      });
-
-      if (!html) {
-        html = '-';
-        data.shortage = '-';
-        data.excess = '-';
-        data.maxsoldier = '-';
-      }
-
-      $('#merge').html(html);
-      $('#shortage').html(data.shortage);
-      $('#excess').html(data.excess);
-      $('#maxsoldier').html(data.maxsoldier);
-      $('#shortage > span.ixamoko_shortage_resource, #excess > span.ixamoko_excess_resource')
-        .on('click', trading_value);
-    }
-
-    function tradableNum(data) {
-      var max = 1500000,
-        i, j, len;
-      for (j = 0, len = data.resource.length; j < len; j++) {
-        var quotient = data.resource[j] / data.required[j];
-        if (quotient < max) {
-          max = Math.floor(quotient);
-        }
-      }
-
-      for (i = (max + 1); i < 15000; ++i) {
-        var shortage = 0;
-        var excess = 0;
-        for (j = 0, len = data.resource.length; j < len; j++) {
-          if ((i * data.required[j]) > data.resource[j]) {
-            shortage += i * data.required[j] - data.resource[j];
-          } else {
-            excess += data.resource[j] - i * data.required[j];
-          }
-        }
-
-        if (excess * data.rate < shortage) {
-          break;
-        }
-      }
-      --i;
-
-      var img = ['ico_wood.gif', 'ico_wool.gif', 'ico_ingot.gif', 'ico_grain.gif'];
-      var alt_l = ['木', '綿', '鉄', '糧'];
-      var tmp1c = 0;
-      var tmp1t = null;
-      var html1 = '';
-      var html2 = '';
-      var tmpx;
-
-      for (j = 0, len = data.resource.length; j < len; j++) {
-        var num = 101 + j;
-        if ((i * data.required[j]) < data.resource[j]) {
-          tmpx = (data.resource[j] - i * data.required[j]);
-          html2 += '<SPAN class="ixamoko_excess_resource" type="' + num + '" value="' + tmpx + '"><IMG src="' + CACHE_PASS + '/img/common/' + img[j] + '" alt="' + alt_l[j] + '" />' + tmpx + '</SPAN>';
-        } else {
-          tmpx = Math.ceil((i * data.required[j] - data.resource[j]) / data.rate);
-          html1 += '<SPAN class="ixamoko_shortage_resource" type="' + num + '" value="' + tmpx + '"><IMG src="' + CACHE_PASS + '/img/common/' + img[j] + '" alt="' + alt_l[j] + '"img_rootimg_root />' + tmpx + '</SPAN>';
-          tmp1c++;
-          tmp1t = num;
-        }
-      }
-
-      var tmp1 = html1 ? '[必要 ' + html1 + ']' : '-';
-      var tmp2 = html2 ? '[余剰 ' + html2 + ']' : '-';
-
-      return {
-        shortage: tmp1,
-        excess: tmp2,
-        maxsoldier: i,
-        shortc: tmp1c,
-        shortt: tmp1t
-      };
-    }
+    $(document).on('click', 'li.facility_training_panel_tab_list_item', function () {
+      setTimeout(createButtons, 70);
+    });
   }
 
-  // 小分け生産
+  //小分け生産
+  //part49 718
   function prodWithSmalllot() {
     if (!options.prod_with_smalllot || location.pathname != '/facility/unit_confirm.php') {
       return;
     }
-    var $table = $('table.paneltable');
-    if ($table.hasClass('paneltable_high') || $table.hasClass('gradeup')) {
-      return; // 高速・上位
+    var $clonedBtn = $('.ig_tilesection_btnarea')
+      .first()
+      .clone(true)
+      .insertBefore('.clearfix.ig_tilesection_innerborder');
+    $clonedBtn.after(
+      $('.unit_confirm_input_checkbox_wrap')
+    );
+    var $wrap = $('.unit_confirm_input_checkbox_wrap');
+    if ($('#all_divide_select').length === 0) {
+      var $firstSelect = $('.create_count').first();
+      if ($firstSelect.length === 0) return;
+      var $newSelect = $('<select id="all_divide_select" style="font-size:12px;width:60px;margin-left:8px;"></select>');
+      $newSelect.append($firstSelect.children().clone());
+      var $newCheckboxTwo = $(
+        '<label style="margin-left:15px;">' +
+        '<input type="checkbox" id="all_divide_two"> 2分割' +
+        '</label>'
+      );
+      var $newCheckboxThree = $(
+        '<label style="margin-left:10px;">' +
+        '<input type="checkbox" id="all_divide_three"> 3分割' +
+        '</label>'
+      );
+      $wrap
+        .append($newCheckboxTwo)
+        .append($newCheckboxThree)
+        .append($newSelect);
     }
-    var $Form = $('#dataForm'),
-      x = $Form.find('input[name="x"]').val(),
-      y = $Form.find('input[name="y"]').val(),
-      unit_id = $Form.find('input[name="unit_id"]').val(),
-      count = $Form.find('input[name="count"]').val();  // 訓練総数
-    if (count < 200) {
-      return;
+    function applyDivide(value) {
+      $('.create_count').each(function () {
+        var $select = $(this);
+        var $option = $select.find('option[value="' + value + '"]');
+        if ($option.length > 0) {
+          $select.find('option').prop('selected', false);
+          $option.prop('selected', true);
+          setTimeout(function () {
+            $select.trigger('change');
+          }, 80);
+        }
+      });
     }
-    var pwsl_list = (function () {
-      var a = [], r = 0;
-      for (var i = 0; i < 10; i++) {
-        r += 100;
-        if (count >= r) { a[i] = r; }
+    $('#all_divide_two').on('change', function () {
+      if ($(this).prop('checked')) {
+        $('#all_divide_three').prop('checked', false);
+        applyDivide("2");
+      } else {
+        if (
+          !$('#all_divide_three').prop('checked') && $('#all_divide_select').val() === "1"
+        ) {
+          applyDivide("1");
+        }
       }
-      return a;
-    })();
-    var html = '<span style="float: right;">小分け数<select id="select_smalllot" style="margin: 0 10px 0 5px;">';
-    for (var i = 0, len = pwsl_list.length; i < len; i++) {
-      html += '<option value="' + pwsl_list[i] + '" ' + (pwsl_list[i] == each_setting.smalllot_num ? 'selected' : '') + '>' + pwsl_list[i] + '</option>';
-    }
-    html += '</select><input type="button" id="smalllot" value="小分け訓練開始" /></span>';
-    $table.find('td:last').append(html);
-    $('#select_smalllot').on('change', function () {
-      each_setting.smalllot_num = $(this).val();
-      setStorage('ixamoko_each_setting', each_setting);
     });
-    var regist = parseInt($table.find('th').eq(1).text()),
-      $smalllot = $('#smalllot');
-    if (regist < each_setting.smalllot_num || !$('img[alt="訓練開始"]').length) {
-      $smalllot.prop('disabled', true);
-    }
-    $smalllot.on('click', function () {
-      if (!confirm('小分け訓練を開始してよろしいですか？')) {
-        return;
-      }
-      nowLoading();
-      Info.title('訓練登録中...');
-      var village_id = getSelectBaseData().vid;
-      if (!village_id) {
-        return false;
-      }
-      var max_count = $('select[name="create_count"] option:last').val(); // 分割上限
-      var u = parseInt($('#select_smalllot').val());  // 小分け数
-      var div = Math.floor(count / u);
-      var mod = count % u;
-
-      // 分割上限以上は実行しない
-      if (mod === 0 && max_count < div) {
-        div = max_count;
-      } else if (mod > 0 && max_count < div + 1) {
-        div = max_count - 1;
-      }
-      var i;
-      var params = [];
-      for (i = 1; i <= div + 1; i++) {
-        var param = {};
-        param.x = x;
-        param.y = y;
-        param.unit_id = unit_id;
-        param.village_id = village_id;
-        if (i < div) {
-          param.finish = false;
-          param.u = u;
-        } else if (i == div) {
-          if (mod < 100) {
-            param.finish = true;
-            param.u = u + mod;
-            params.push(param);
-            break;
-          } else {
-            param.finish = false;
-            param.u = u;
-          }
-        } else {
-          param.finish = true;
-          param.u = mod;
+    $('#all_divide_three').on('change', function () {
+      if ($(this).prop('checked')) {
+        $('#all_divide_two').prop('checked', false);
+        applyDivide("3");
+      } else {
+        if (
+          !$('#all_divide_two').prop('checked') && $('#all_divide_select').val() === "1"
+        ) {
+          applyDivide("1");
         }
-        params.push(param);
       }
-
-      post_smalllot(params, 0);
-
-      function post_smalllot(params, i) {
-        var obj = params[i++];
-        var sendurl = '/facility/facility.php?x=' + obj.x + '&y=' + obj.y;
-        var soldierName = SOLDIER.numberKey[obj.unit_id];
-        function sendQuery() {
-          return $.ajax({
-            type: 'POST',
-            dataType: 'text',
-            async: false,
-            timeout: 2000,
-            url: sendurl,
-            cache: true,
-            data: {
-              x: obj.x,
-              y: obj.y,
-              unit_id: obj.unit_id,
-              count: obj.u,
-              btnsend: true
-            },
-            beforeSend: function (xhr) {
-              xhr.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
-            }
-          });
-        }
-        sendQuery().done(function (html) {
-          Info.log('[' + soldierName + ']を' + obj.u + '登録中...');
-          if (obj.finish) {
-            return Info.title('完了', sendurl); // 完了したら兵舎画面に戻す
-          }
-          setTimeout(post_smalllot, 100, params, i);
-        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-          return false;
-        });
-      }
+    });
+    $('#all_divide_select').on('change', function () {
+      var value = $(this).val();
+      $('#all_divide_two').prop('checked', false);
+      $('#all_divide_three').prop('checked', false);
+      applyDivide(value);
     });
   }
 
@@ -25416,6 +25471,9 @@ function MokoCss() {
     // 秘境表示
     '#ixamoko_dungeon { white-space: nowrap; color: #fff; background-color: rgba(255,100,100,0.3); border: solid 2px #fdd; border-radius: 5px; padding: 3px; margin-right: 3px; }' +
     '#ixamoko_dungeon_time { text-align: center; }' +
+
+    // 入力値警告用
+    '.over-limit { background-color: #ffd6dc; }' +
 
     ''; // ^ style.innerHTML
   return (style);
