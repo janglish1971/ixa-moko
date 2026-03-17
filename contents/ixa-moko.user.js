@@ -15299,6 +15299,11 @@ function MokoMain($) {
           html += '</span>' +
             '</li>';
         }
+          //ツールチップに陣をレベル5にアップを追加　20260121
+        html += '<li class="moko_menu">' +
+          '<a href="javascript:void(0);" id="camp_lv5_now">陣をレベル5にアップ</a>' +
+          '</li>';
+        //ここまで
 
         target.after(html);
 
@@ -15399,6 +15404,25 @@ function MokoMain($) {
           $(this).closest('#mapSubmenu').find('#territory_thumbnail').show();
         }
       }, 'li.moko_menu')
+
+      //陣からいきなりLV5  20260221         
+      .on('click', '#camp_lv5_now', function () {
+
+        var data = getMaterialData();
+        if (!data || !data.x) return false;
+
+        var lvup_url = '/facility/camp_proc.php'
+            + '?x=' + data.x
+            + '&y=' + data.y
+            + '&c=' + data.c
+            + '&mode=lvup'
+            + '&to=5';
+
+        location.href = lvup_url;
+
+        return false;
+      })
+
       .on('click', '#mapSubmenu a', function () {
         $('#mapSubmenu').hide();
       });
@@ -21703,6 +21727,165 @@ function MokoMain($) {
     }
     $(window).scroll(adding_page);
   }
+
+  // ======================================
+// プレゼントボックス　兵士数集計
+// ======================================
+
+(function(){
+
+if (
+  location.pathname === '/user/present.php' &&
+  location.search.match(/type=unit/)
+) {
+  createButton();
+}
+
+function createButton(){
+
+  if($('#moko_collect_btn').length) return;
+
+  var btn = $('<button id="moko_collect_btn" style="margin:10px;padding:5px 15px;">兵士を全ページ集計</button>');
+
+  btn.on('click', function(){
+    $(this).prop('disabled', true);
+    startScan();
+  });
+
+  $('div.common_box3').first().before(btn);
+}
+
+// ----------------------------------
+
+function startScan(){
+
+  var totals = {};
+  var pages = getMaxPage();
+  var current = 1;
+
+  Info.title('集計中... (1 / ' + pages + ')');
+
+  // iframe生成（非表示）
+  var iframe = $('<iframe id="moko_scan_frame" style="display:none;"></iframe>');
+  $('body').append(iframe);
+
+  loadPage(1);
+
+  function loadPage(p){
+
+    $('#moko_scan_frame').attr('src','/user/present.php?type=unit&p='+p);
+
+    $('#moko_scan_frame').off('load').on('load', function(){
+
+      var doc = this.contentDocument || this.contentWindow.document;
+
+      $(doc).find('div.item_wrap_out3 p.title').each(function(){
+
+        var text = $(this).text().trim();
+        var match = text.match(/^(.+?)\s+([\d,]+)$/);
+        if(!match) return;
+
+        var name = match[1];
+        var count = parseInt(match[2].replace(/,/g,''),10);
+
+        if(!totals[name]) totals[name]=0;
+        totals[name]+=count;
+      });
+
+      if(p >= pages){
+        finish();
+      } else {
+        current++;
+        Info.title('集計中... ('+current+' / '+pages+')');
+        loadPage(current);
+      }
+
+    });
+  }
+
+  function finish(){
+
+    $('#moko_scan_frame').remove();
+
+    renderTable(totals);
+
+    Info.title('兵士数集計 完了');
+    setTimeout(function(){ Info.title(''); },1500);
+
+    $('#moko_collect_btn').prop('disabled', false);
+  }
+}
+
+// ----------------------------------
+
+function getMaxPage(){
+
+  var max = 1;
+
+  $('a[href*="type=unit"][href*="p="]').each(function(){
+
+    var href = $(this).attr('href');
+    var m = href.match(/p=(\d+)/);
+    if(m){
+      var num = parseInt(m[1],10);
+      if(num > max) max = num;
+    }
+  });
+
+  return max;
+}
+
+
+// ----------------------------------
+
+function renderTable(totals){
+
+  $('#moko_unit_table_wrap').remove();  // 既存削除
+
+  var order = [
+    "足軽","長槍足軽","武士",
+    "弓足軽","長弓兵","弓騎馬",
+    "騎馬兵","精鋭騎馬","赤備え",
+    "破城鎚","攻城櫓","大筒兵",
+    "鉄砲足軽","騎馬鉄砲","焙烙火矢",
+    "国人衆","海賊衆","母衣衆",
+    "雑賀衆","穴太衆"
+  ];
+
+  var totalAll = 0;
+
+  var html = '<div id="moko_unit_table_wrap" ' +
+             'style="position:fixed; top:80px; right:20px; z-index:9999; background:#fff; border:2px solid #333; padding:10px; max-height:600px; overflow:auto;">';
+
+  html += '<div style="text-align:right;"><button id="moko_close_btn">×</button></div>';
+
+  html += '<table id="moko_unit_table" class="paneltable table_fightlist2"><tbody>';
+
+  order.forEach(function(name){
+
+    var val = totals[name] || 0;
+    totalAll += val;
+
+    html += '<tr>';
+    html += '<th width="120">'+name+'</th>';
+    html += '<td width="120">'+val.toLocaleString()+'</td>';
+    html += '</tr>';
+  });
+
+  html += '<tr style="background:#333;color:#fff;">';
+  html += '<th>総兵力</th>';
+  html += '<td>'+totalAll.toLocaleString()+'</td>';
+  html += '</tr>';
+
+  html += '</tbody></table></div>';
+
+  $('body').append(html);
+
+  $('#moko_close_btn').on('click', function(){
+    $('#moko_unit_table_wrap').remove();
+  });
+}
+})();
 
   // === その他 ===
 
