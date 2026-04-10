@@ -21129,144 +21129,174 @@ function MokoMain($) {
     }
   }
 
-  // 戦国くじ履歴集計
-  function senkujiSummary() {
-    if (location.pathname != '/senkuji/senkuji_history.php') {
-      return;
+  // 戦国くじ履歴集計（高速版）
+function senkujiSummary() {
+  if (location.pathname != '/senkuji/senkuji_history.php') return;
+
+  $('table.common_table1 th:last')
+    .empty()
+    .append('<input type="button" id="aggregate" value="戦国くじ履歴集計（高速）" />');
+
+  $('#aggregate').on('click', async function () {
+    nowLoading();
+    Info.title('履歴を集計中...');
+    $(this).prop('disabled', true);
+
+    const max_page = getMaxPage();
+    const result = await getAllPages(max_page);
+
+    finalize(result);
+    writeSenkujiSummary(result);
+    Info.title('集計完了', true);
+  });
+
+  // =========================
+  // 最大ページ取得（1回だけ）
+  // =========================
+  function getMaxPage() {
+    if ($('ul.pager').length) {
+      return parseInt($('ul.pager a:last').attr('href').match(/\d+/g)[0], 10);
     }
-    $('table.common_table1 th:last').empty().append('<input type="button" id="aggregate" value="戦国くじ履歴集計" />');
-    $('#aggregate').on('click', function () {
-      nowLoading();
-      Info.title('履歴を集計中...');
-      $(this).prop('disabled', true);
-      return getSenkujiHistory({}, 1);
+    return 1;
+  }
+
+  // =========================
+  // 並列取得
+  // =========================
+  async function getAllPages(max_page) {
+    const MAX_PARALLEL = 5;
+    let results = {};
+
+    for (let i = 1; i <= max_page; i += MAX_PARALLEL) {
+      let promises = [];
+
+      for (let j = i; j < i + MAX_PARALLEL && j <= max_page; j++) {
+        promises.push(fetchPage(j));
+      }
+
+      let pages = await Promise.all(promises);
+
+      pages.forEach(pageData => {
+        merge(results, pageData);
+      });
+
+      Info.count(Math.min(i + MAX_PARALLEL - 1, max_page) + '/' + max_page + 'ページ');
+    }
+
+    return results;
+  }
+
+  // =========================
+  // 1ページ取得（軽量パース）
+  // =========================
+  async function fetchPage(page) {
+    const html = await $.ajax({
+      type: 'post',
+      url: '/senkuji/senkuji_history.php?p=' + page,
+      beforeSend: xrwStatusText,
     });
 
-    function getSenkujiHistory(object, i) {
-      var max_page = 1;
-      if ($('ul.pager').length) {
-        max_page = $('ul.pager a:last').attr('href').match(/\d+/g)[0];
-      }
-      if (i > max_page) {
-        for (var key in object) {
-          var total = 0;
-          for (var key2 in object[key]) {
-            total += object[key][key2];
-          }
-          object[key]['合計'] = total;
-        }
-        return writeSenkujiSummary(object);
-      }
-      Info.count(i + '/' + max_page + 'ページ');
-      $.ajax({
-        type: 'post',
-        url: '/senkuji/senkuji_history.php?p=' + i,
-        beforeSend: xrwStatusText,
-      }).then(function (html) {
-        var $html = $(html).find('#ig_deckboxInner'),
-          $tr = $html.find('tr.fs12');
-        $tr.each(function () {
-          var type = $(this).find('td:last').text(),
-            rare = $(this).find('img').attr('alt');
-          if (!object[type]) {
-            object[type] = {};
-            object[type][rare] = 1;
-            return;
-          }
-          for (var key in object) {
-            if (key == type) {
-              for (var key2 in object[type]) {
-                if (key2 == rare) {
-                  object[type][key2] += 1;
-                } else if (!object[type][rare]) {
-                  object[type][rare] = 1;
-                }
-              }
-            }
-          }
-        });
-        i++;
-        getSenkujiHistory(object, i);
-      }, null);
-    }
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
 
-    function writeSenkujiSummary(object) {
-      var array = [],
-        keys;
-      for (var key in object) {
-        keys = object[key];
-        keys.type = key;
-        array.push(keys);
+    let result = {};
+    const rows = doc.querySelectorAll('#ig_deckboxInner tr.fs12');
+
+    rows.forEach(row => {
+      const type = row.querySelector('td:last-child')?.textContent.trim();
+      const rare = row.querySelector('img')?.alt;
+
+      if (!type || !rare) return;
+
+      if (!result[type]) result[type] = {};
+      if (!result[type][rare]) result[type][rare] = 0;
+
+      result[type][rare]++;
+    });
+
+    return result;
+  }
+
+  // =========================
+  // マージ処理
+  // =========================
+  function merge(base, add) {
+    for (let type in add) {
+      if (!base[type]) base[type] = {};
+
+      for (let rare in add[type]) {
+        if (!base[type][rare]) base[type][rare] = 0;
+        base[type][rare] += add[type][rare];
       }
-      array.sort(function (a, b) {
-        return b.合計 - a.合計;
-      });
-      var rare_icon = {
-        '序': '/img/card/icon/icon_jo.png',
-        '上': '/img/card/icon/icon_jou.png',
-        '特': '/img/card/icon/icon_toku.png',
-        '極': '/img/card/icon/icon_goku.png',
-        '天': '/img/card/icon/icon_ten.png',
-        '傑': '/img/card/icon/icon_ketsu.png',
-        '雅': '/img/card/icon/miyabi.png',
-        '童': '/img/card/icon/icon_warabe.png',
-        '化': '/img/card/icon/icon_bake.png'
-      },
-        h = ['序', '上', '特', '極', '天', '傑', '雅', '童', '化', '合計'];
-      var html = '<table id="agg_table" class="common_table1 center mt10">' + '<tbody>' + '<tr>' + '<th>種類/レアリティ</th>';
-      $.each(rare_icon, function (i, s) {
-        html += '<th><img src="' + s + '" alt="' + i + '" width="30" height="30" class="middle" /></th>';
-      });
-      html += '<th>小計</th>' + '</tr>';
-      var i, len;
-      for (i = 0, len = array.length; i < len; i++) {
-        html += '<tr>' + '<td>' + array[i].type + '</td>';
-        for (var j = 0, jlen = h.length; j < jlen; j++) {
-          html += '<td>' + (array[i][h[j]] ? array[i][h[j]] : 0) + '</td>';
-        }
-        html += '</tr>';
-        html += '<tr>' + '<td><font size=1>' + '確率' + '</font></td>';
-        for (var j = 0, jlen = h.length; j < jlen; j++) {
-          var ratetmp = array[i][h[j]] / array[i][h[8]] * 1000 / 10;
-          html += '<td><font size=1>' + (array[i][h[j]] && j != 8 ? ratetmp.toFixed(2) + '%' : '-') + '</font></td>';
-        }
-      }
-      html += '</tbody>' + '</table>';
-      $('div.ig_tilesection_innermid').prepend(html);
-      var list = ['', 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        rate = [],
-        $tr = $('#agg_table tr:odd');
-      $tr.each(function () {
-        for (i = 1, len = list.length; i < len; i++) {
-          var x = parseInt($(this).find('td').eq(i).text());
-          list[i] += x;
-        }
-      });
-      var total = list[9],
-        num, html2 = '';
-      for (i = 0, len = list.length; i < len; i++) {
-        num = list[i] / total * 1000 / 10;
-        rate.push(num.toFixed(2));
-      }
-      rate.pop();
-      html2 += '<tr><th>合計</th>';
-      for (i = 1, len = list.length; i < len; i++) {
-        html2 += '<th>' + list[i] + '</th>';
-      }
-      html2 += '</tr>';
-      html2 += '<tr><td>確率</td>';
-      for (i = 1, len = rate.length; i < len; i++) {
-        if (rate[i] === 0) {
-          html2 += '<td>-</td>';
-        } else {
-          html2 += '<td>' + rate[i] + '%</td>';
-        }
-      }
-      html2 += '<td>-</td></tr>';
-      $('#agg_table tbody').append(html2);
-      Info.title('集計完了', true);
     }
   }
+
+  // =========================
+  // 合計追加
+  // =========================
+  function finalize(object) {
+    for (let type in object) {
+      let total = 0;
+      for (let rare in object[type]) {
+        total += object[type][rare];
+      }
+      object[type]['合計'] = total;
+    }
+  }
+
+  // =========================
+  // 表示（既存流用）
+  // =========================
+  function writeSenkujiSummary(object) {
+    var array = [], keys;
+
+    for (var key in object) {
+      keys = object[key];
+      keys.type = key;
+      array.push(keys);
+    }
+
+    array.sort(function (a, b) {
+      return b.合計 - a.合計;
+    });
+
+    var rare_icon = {
+      '序': '/img/card/icon/icon_jo.png',
+      '上': '/img/card/icon/icon_jou.png',
+      '特': '/img/card/icon/icon_toku.png',
+      '極': '/img/card/icon/icon_goku.png',
+      '天': '/img/card/icon/icon_ten.png',
+      '傑': '/img/card/icon/icon_ketsu.png',
+      '雅': '/img/card/icon/miyabi.png',
+      '童': '/img/card/icon/icon_warabe.png',
+      '化': '/img/card/icon/icon_bake.png'
+    };
+
+    var h = ['序', '上', '特', '極', '天', '傑', '雅', '童', '化', '合計'];
+
+    var html = '<table id="agg_table" class="common_table1 center mt10"><tbody><tr><th>種類/レアリティ</th>';
+
+    $.each(rare_icon, function (i, s) {
+      html += '<th><img src="' + s + '" width="30"></th>';
+    });
+
+    html += '<th>小計</th></tr>';
+
+    array.forEach(row => {
+      html += '<tr><td>' + row.type + '</td>';
+
+      h.forEach(key => {
+        html += '<td>' + (row[key] || 0) + '</td>';
+      });
+
+      html += '</tr>';
+    });
+
+    html += '</tbody></table>';
+
+    $('div.ig_tilesection_innermid').prepend(html);
+  }
+}
 
   // 合成 白くじ引き
   function syntheticWhiteLottery() {
